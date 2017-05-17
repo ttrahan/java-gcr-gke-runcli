@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+
+<coverage line-rate="0.8461538461538461" branch-rate="0.5" lines-covered="11" lines-valid="13" branches-covered="2" branches-valid="4" complexity="3.0" version="2.1.1" timestamp="1495064538878">
+	<sources>
+		<source>--source</source>
+		<source>/Users/tomtra/ship-demo/ttrahan/java-gcr-gke-runcli/ms_02/src/main/java</source>
+	</sources>
+	<packages>
+		<package name="com.shipfmrsamplejava.helloworld.controller" line-rate="0.8461538461538461" branch-rate="0.5" complexity="3.0">
+			<classes>
+				<class name="com.shipfmrsamplejava.helloworld.controller.HelloWorldController" filename="com/shipfmrsamplejava/helloworld/controller/HelloWorldController.java" line-rate="0.8461538461538461" branch-rate="0.5" complexity="3.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="10" hits="3" branch="false"/>
+								<line number="11" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="showMessage" signature="(Ljava/lang/String;)Lorg/springframework/web/servlet/ModelAndView;" line-rate="0.8181818181818182" branch-rate="0.5" complexity="0">
+							<lines>
+								<line number="16" hits="2" branch="false"/>
+								<line number="18" hits="2" branch="false"/>
+								<line number="20" hits="2" branch="false"/>
+								<line number="21" hits="2" branch="false"/>
+								<line number="22" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="23" hits="0" branch="false"/>
+								<line number="25" hits="2" branch="false"/>
+								<line number="27" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="28" hits="0" branch="false"/>
+								<line number="30" hits="2" branch="false"/>
+								<line number="32" hits="2" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="10" hits="3" branch="false"/>
+						<line number="11" hits="3" branch="false"/>
+						<line number="16" hits="2" branch="false"/>
+						<line number="18" hits="2" branch="false"/>
+						<line number="20" hits="2" branch="false"/>
+						<line number="21" hits="2" branch="false"/>
+						<line number="22" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="23" hits="0" branch="false"/>
+						<line number="25" hits="2" branch="false"/>
+						<line number="27" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="28" hits="0" branch="false"/>
+						<line number="30" hits="2" branch="false"/>
+						<line number="32" hits="2" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>

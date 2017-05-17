@@ -14,9 +14,12 @@ build:
     - SERVICES=(ms_01 ms_02)
     - |
         for service in ${SERVICES[@]}; do
+          export service
           cd $SHIPPABLE_BUILD_DIR/$service
           # run Maven build and tests for each service
           mvn -q -B clean cobertura:cobertura install
+          # update Dockerfile template with service value
+          envsubst < docker/$service/Dockerfile > docker/$service/Dockerfile
           # build docker image and push to registry
           docker build -t $GCR_REPO:$service $SHIPPABLE_BUILD_DIR/docker/$service
           docker push $GCR_REPO:$service
