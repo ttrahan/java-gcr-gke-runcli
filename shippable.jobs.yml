@@ -28,6 +28,4 @@ jobs:
               - script: kubectl version
               - script: kubectl apply -f kube-deploy.yaml
               - script: kubectl rollout status deployments sample-node-ayeaye --namespace test
-              # save latest deployment to state
-              - script: echo -e "IMAGE_REPO=$IMAGE_REPO\nIMAGE_TAG=$IMAGE_TAG" >> $JAVA_GCR_GKE_RUNCLI_TEST_DEPLOY_STATE/latest_test_deploy.env
             done
