@@ -17,7 +17,6 @@ build:
           cd $SHIPPABLE_BUILD_DIR/$service
           # run Maven build and tests for each service
           mvn -q -B clean cobertura:cobertura install
-          ls -al $SHIPPABLE_BUILD_DIR/target
           # build docker image and push to registry
           docker build -t $GCR_REPO:$service $SHIPPABLE_BUILD_DIR/docker/$service
           docker push $GCR_REPO:$service
