@@ -14,6 +14,7 @@ build:
     - SERVICES=(ms_01 ms02)
     - |
         for service in ${SERVICES[@]}; do
+          cd $SHIPPABLE_BUILD_DIR/$service
           # run Maven build and tests for each service
           mvn -q -B clean cobertura:cobertura install
           ls -al $SHIPPABLE_BUILD_DIR/target
