@@ -11,7 +11,7 @@ env:
 build:
   ci:
     # create location to store test and code coverage reports
-    - SERVICES=(ms_01 ms02)
+    - SERVICES=(ms_01 ms_02)
     - |
         for service in ${SERVICES[@]}; do
           cd $SHIPPABLE_BUILD_DIR/$service
