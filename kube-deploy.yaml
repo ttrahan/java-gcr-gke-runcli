@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  # Unique key of the Deployment instance
+  name: sample-node-ayeaye-$SERVICE
+  namespace: test
+spec:
+  replicas: 1
+  # Keep record of 10 revisions for rollback
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 30
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        # Apply this label to pods and default
+        # the Deployment label selector to this value
+        app: sample-node-ayeaye
+        env: test
+    spec:
+      containers:
+      - name: sample-node-ayeaye
+        image: gcr.io/shippable-gke/java-gcr-gke-runcli:$SERVICE
+        ports:
+        - containerPort: 80
+        env:
+        - name: ENVIRONMENT
+          value: "test"
+        - name: PORT
+          value: "80"
+        resources:
+          requests:
+            memory: 128
+            cpu: .5

@@ -1,0 +1,28 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+env:
+  global:
+    # replace with your docker registry account name (e.g. GCR)
+    - GCR_REPO=gcr.io/shippable-gke/java-gcr-gke-runcli
+
+build:
+  ci:
+    # create location to store test and code coverage reports
+    - SERVICES=(ms_01 ms02)
+    - |
+        for service in ${SERVICES[@]}; do
+          # run Maven build and tests for each service
+          mvn -q -B clean cobertura:cobertura install
+          ls -al $SHIPPABLE_BUILD_DIR/target
+          # build docker image and push to registry
+          docker build -t $GCR_REPO:$service $SHIPPABLE_BUILD_DIR/docker/$service
+          docker push $GCR_REPO:$service
+        done
+
+integrations:
+  hub:
+    - integrationName: ttrahan-gcr
+      type: gcr

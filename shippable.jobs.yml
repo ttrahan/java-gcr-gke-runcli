@@ -1,0 +1,33 @@
+jobs:
+
+######################### NATIVE WAR CI/CD JOBS #########################
+
+# runCI job that builds and pushes artifact to S3
+  - name: java-gcr-gke-runcli_runCI
+    type: runCI
+
+# runCLI job that deploys image in ECR to Elastic Beanstalk - TEST
+  - name: java_gcr_gke_runcli_test_deploy
+    type: runCLI
+    steps:
+      - IN: java-gcr-gke-runcli_runCI
+        switch: off
+      - IN: java_gcr_gke_runcli_gitrepo
+        switch: off
+      - IN: java_gcr_gke_runcli_googlecli
+      - TASK:
+        - script: SERVICES=(ms_01 ms_02)
+        # deploy each service to GKE
+        - script: |
+            for each service in ${SERVICES[@]}; do
+              - script: echo "deploying $service"
+              # update template files with values in env variables
+              - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
+              - script: shippable_replace kube-deploy.yaml
+              # deploy to cluster and verify success
+              - script: kubectl version
+              - script: kubectl apply -f kube-deploy.yaml
+              - script: kubectl rollout status deployments sample-node-ayeaye --namespace test
+              # save latest deployment to state
+              - script: echo -e "IMAGE_REPO=$IMAGE_REPO\nIMAGE_TAG=$IMAGE_TAG" >> $JAVA_GCR_GKE_RUNCLI_TEST_DEPLOY_STATE/latest_test_deploy.env
+            done

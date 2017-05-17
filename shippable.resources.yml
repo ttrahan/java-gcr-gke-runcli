@@ -1,0 +1,15 @@
+resources:
+# gitRepo for scripts/config files
+  - name: java_gcr_gke_runcli_gitrepo
+    type: gitRepo
+    integration: ttrahan-gh
+    pointer:
+      sourceName: ttrahan/java-gcr-gke-runcli
+      branch: master
+  
+# Google CLI config
+  - name: java_gcr_gke_runcli_googlecli
+    type: cliConfig
+    integration: ttrahan-gke
+    pointer:
+      region: us-east-1
