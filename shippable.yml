@@ -12,7 +12,7 @@ env:
 build:
   ci:
     - cd $SHIPPABLE_BUILD_DIR
-    # create location to store test and code coverage reports
+    # run build for each microservice
     - SERVICES=(auth audit)
     - |
         for service in ${SERVICES[@]}; do
