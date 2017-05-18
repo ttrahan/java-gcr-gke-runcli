@@ -17,10 +17,9 @@ build:
     - |
         for service in ${SERVICES[@]}; do
           export service
-          pushd $SHIPPABLE_BUILD_DIR/$service
           # run Maven build and tests for each service
           # mvn clean install
-          mvn -q -B clean cobertura:cobertura install
+          mvn -q -f $SHIPPABLE_BUILD_DIR/$service -B clean cobertura:cobertura install
           # update Dockerfile template with service value
           # envsubst < zz-docker/$service/Dockerfile > zz-docker/$service/Dockerfile
           shippable_replace $SHIPPABLE_BUILD_DIR/zz-docker/$service/Dockerfile 
@@ -29,7 +28,6 @@ build:
           # build docker image and push to registry
           docker build -t $GCR_REPO:$service zz-docker/$service
           docker push $GCR_REPO:$service
-          popd
         done
 
   on_success:
