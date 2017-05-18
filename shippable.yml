@@ -20,13 +20,11 @@ build:
           # run Maven build and tests for each service
           # mvn clean install
           mvn -q -f $SHIPPABLE_BUILD_DIR/$service -B clean cobertura:cobertura install
-          echo $SHIPPABLE_BUILD_DIR/$service/target
-          ls -la $SHIPPABLE_BUILD_DIR/$service/target
           # update Dockerfile template with service value
           # envsubst < zz-docker/$service/Dockerfile > zz-docker/$service/Dockerfile
           shippable_replace $SHIPPABLE_BUILD_DIR/zz-docker/$service/Dockerfile 
-          cat $SHIPPABLE_BUILD_DIR/zz-docker/$service/Dockerfile
           # cp $service/target/$service.jar zz-docker/$service
+          cp $service/target/${service}.war zz-docker/$service
           # cp zz-docker/application.yml zz-docker/$service
           # build docker image and push to registry
           echo $GCR_REPO:service
