@@ -25,16 +25,16 @@ jobs:
         # deploy each service to GKE
         - script: |
             for service in ${SERVICES[@]}; do
-              - script: echo "deploying $service"
+              echo "deploying $service"
               # update template files with values in env variables
-              - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              # - script: shippable_replace zz-kubernetes/deploy-$service.yml
-              - script: shippable_replace kube-deploy.yaml
+              cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
+              # shippable_replace zz-kubernetes/deploy-$service.yml
+              shippable_replace kube-deploy.yaml
               # deploy to cluster and verify success
-              - script: kubectl version
-              # - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
-              - script: kubectl apply -f kube-deploy.yaml
-              - script: kubectl rollout status deployments $service
+              kubectl version
+              # kubectl apply -f zz-kubernetes/deploy-$service.yml
+              kubectl apply -f kube-deploy.yaml
+              kubectl rollout status deployments $service
             done
 
 # runCLI job that deploys image in ECR - TEST
@@ -51,16 +51,16 @@ jobs:
         # deploy each service to GKE
         - script: |
             for service in ${SERVICES[@]}; do
-              - script: echo "deploying $service"
+              echo "deploying $service"
               # update template files with values in env variables
-              - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              # - script: shippable_replace zz-kubernetes/deploy-$service.yml
-              - script: shippable_replace kube-deploy.yaml
+              cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
+              # shippable_replace zz-kubernetes/deploy-$service.yml
+              shippable_replace kube-deploy.yaml
               # deploy to cluster and verify success
-              - script: kubectl version
-              # - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
-              - script: kubectl apply -f kube-deploy.yaml
-              - script: kubectl rollout status deployments $service
+              kubectl version
+              # kubectl apply -f zz-kubernetes/deploy-$service.yml
+              kubectl apply -f kube-deploy.yaml
+              kubectl rollout status deployments $service
             done
 
 # runCLI job that deploys image in ECR - TEST
@@ -77,14 +77,14 @@ jobs:
         # deploy each service to GKE
         - script: |
             for service in ${SERVICES[@]}; do
-              - script: echo "deploying $service"
+              echo "deploying $service"
               # update template files with values in env variables
-              - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              # - script: shippable_replace zz-kubernetes/deploy-$service.yml
-              - script: shippable_replace kube-deploy.yaml
+              cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
+              # shippable_replace zz-kubernetes/deploy-$service.yml
+              shippable_replace kube-deploy.yaml
               # deploy to cluster and verify success
-              - script: kubectl version
-              # - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
-              - script: kubectl apply -f kube-deploy.yaml
-              - script: kubectl rollout status deployments $service
+              kubectl version
+              # kubectl apply -f zz-kubernetes/deploy-$service.yml
+              kubectl apply -f kube-deploy.yaml
+              kubectl rollout status deployments $service
             done
