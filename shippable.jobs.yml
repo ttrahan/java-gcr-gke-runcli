@@ -28,10 +28,12 @@ jobs:
               - script: echo "deploying $service"
               # update template files with values in env variables
               - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              - script: shippable_replace zz-kubernetes/deploy-$service.yml
+              # - script: shippable_replace zz-kubernetes/deploy-$service.yml
+              - script: shippable_replace kube-deploy.yaml
               # deploy to cluster and verify success
               - script: kubectl version
-              - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              # - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              - script: kubectl apply -f kube-deploy.yaml
               - script: kubectl rollout status deployments $service
             done
 
@@ -52,10 +54,12 @@ jobs:
               - script: echo "deploying $service"
               # update template files with values in env variables
               - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              - script: shippable_replace zz-kubernetes/deploy-$service.yml
+              # - script: shippable_replace zz-kubernetes/deploy-$service.yml
+              - script: shippable_replace kube-deploy.yaml
               # deploy to cluster and verify success
               - script: kubectl version
-              - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              # - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              - script: kubectl apply -f kube-deploy.yaml
               - script: kubectl rollout status deployments $service
             done
 
@@ -76,10 +80,11 @@ jobs:
               - script: echo "deploying $service"
               # update template files with values in env variables
               - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              - script: shippable_replace zz-kubernetes/deploy-$service.yml
+              # - script: shippable_replace zz-kubernetes/deploy-$service.yml
+              - script: shippable_replace kube-deploy.yaml
               # deploy to cluster and verify success
               - script: kubectl version
-              - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              # - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              - script: kubectl apply -f kube-deploy.yaml
               - script: kubectl rollout status deployments $service
             done
-
