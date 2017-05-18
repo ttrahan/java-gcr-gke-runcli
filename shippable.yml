@@ -17,7 +17,7 @@ build:
     - |
         for service in ${SERVICES[@]}; do
           export service
-          cd $SHIPPABLE_BUILD_DIR/$service
+          pushd $SHIPPABLE_BUILD_DIR/$service
           # run Maven build and tests for each service
           # mvn clean install
           mvn -q -B clean cobertura:cobertura install
@@ -30,6 +30,7 @@ build:
           docker build -t $GCR_REPO/$service zz-docker/$service
           docker tag $service $GCR_REPO/$service
           docker push $GCR_REPO/$service
+          popd
         done
 
   on_success:
