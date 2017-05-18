@@ -1,7 +1,5 @@
 FROM tomcat:8.0.20-jre8
 
-ARG 
-
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 COPY $SHIPPABLE_BUILD_DIR/$service/target/HelloWorld.war /usr/local/tomcat/webapps/HelloWorld.war

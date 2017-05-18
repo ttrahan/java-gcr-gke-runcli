@@ -59,3 +59,27 @@ jobs:
               - script: kubectl rollout status deployments $service
             done
 
+# runCLI job that deploys image in ECR - TEST
+  - name: java_gcr_gke_runcli_test_deploy_auth
+    type: runCLI
+    steps:
+      - IN: java_gcr_gke_runcli_img_auth
+        switch: off
+      - IN: java_gcr_gke_runcli_gitrepo
+        switch: off
+      - IN: java_gcr_gke_runcli_googlecli
+      - TASK:
+        - script: SERVICES=(auth)
+        # deploy each service to GKE
+        - script: |
+            for each service in ${SERVICES[@]}; do
+              - script: echo "deploying $service"
+              # update template files with values in env variables
+              - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
+              - script: shippable_replace zz-kubernetes/deploy-$service.yml
+              # deploy to cluster and verify success
+              - script: kubectl version
+              - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              - script: kubectl rollout status deployments $service
+            done
+
