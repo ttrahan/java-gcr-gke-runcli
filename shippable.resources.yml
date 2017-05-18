@@ -2,14 +2,44 @@ resources:
 # gitRepo for scripts/config files
   - name: java_gcr_gke_runcli_gitrepo
     type: gitRepo
+    # integration: DatosHealthGit
     integration: ttrahan-gh
     pointer:
+      # sourceName: datoshealth-git
       sourceName: ttrahan/java-gcr-gke-runcli
       branch: master
   
 # Google CLI config
   - name: java_gcr_gke_runcli_googlecli
     type: cliConfig
+    # integration: GoogleContainerEngine
     integration: ttrahan-gke
     pointer:
+      # region: europe-west1-d
       region: us-east-1
+
+# Docker Image Audit
+  - name: java_gcr_gke_runcli_img_audit
+    type: image
+    # integration: GoogleContainerRegistry # replace with your Registry/Hub integration name
+    integration: ttrahan-gcr # replace with your Registry/Hub integration name
+    pointer:
+      # sourceName: eu.gcr.io/development-152606/ci-deploy # replace with docker registry location where you push the images
+      sourceName: gcr.io/shippable-gke/java-gcr-gke-runcli # replace with docker registry location where you push the images
+    seed:
+      versionName: audit
+    flags:
+      - sample_project_1      
+
+# Docker Image Auth
+  - name: java_gcr_gke_runcli_img_auth
+    type: image
+    # integration: GoogleContainerRegistry # replace with your Registry/Hub integration name
+    integration: ttrahan-gcr # replace with your Registry/Hub integration name
+    pointer:
+      # sourceName: eu.gcr.io/development-152606/ci-deploy # replace with docker registry location where you push the images
+      sourceName: gcr.io/shippable-gke/java-gcr-gke-runcli # replace with docker registry location where you push the images
+    seed:
+      versionName: auth
+    flags:
+      - sample_project_1 

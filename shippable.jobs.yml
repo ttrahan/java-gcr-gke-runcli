@@ -5,27 +5,57 @@ jobs:
 # runCI job that builds and pushes artifact to S3
   - name: java-gcr-gke-runcli_runCI
     type: runCI
+    steps:
+      - OUT: java_gcr_gke_runcli_img_audit
+      - OUT: java_gcr_gke_runcli_img_auth
 
-# runCLI job that deploys image in ECR to Elastic Beanstalk - TEST
-  - name: java_gcr_gke_runcli_test_deploy
+# runCLI job that deploys image in ECR - TEST
+  - name: java_gcr_gke_runcli_test_deploy_all
     type: runCLI
     steps:
-      - IN: java-gcr-gke-runcli_runCI
+      - IN: java_gcr_gke_runcli_img_audit
+        switch: off
+      - IN: java_gcr_gke_runcli_img_auth
         switch: off
       - IN: java_gcr_gke_runcli_gitrepo
         switch: off
       - IN: java_gcr_gke_runcli_googlecli
       - TASK:
-        - script: SERVICES=(ms_01 ms_02)
+        - script: SERVICES=(auth audit)
         # deploy each service to GKE
         - script: |
             for each service in ${SERVICES[@]}; do
               - script: echo "deploying $service"
               # update template files with values in env variables
               - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              - script: shippable_replace kube-deploy.yaml
+              - script: shippable_replace zz-kubernetes/deploy-$service.yml
               # deploy to cluster and verify success
               - script: kubectl version
-              - script: kubectl apply -f kube-deploy.yaml
-              - script: kubectl rollout status deployments sample-node-ayeaye --namespace test
+              - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              - script: kubectl rollout status deployments $service
             done
+
+# runCLI job that deploys image in ECR - TEST
+  - name: java_gcr_gke_runcli_test_deploy_audit
+    type: runCLI
+    steps:
+      - IN: java_gcr_gke_runcli_img_audit
+        switch: off
+      - IN: java_gcr_gke_runcli_gitrepo
+        switch: off
+      - IN: java_gcr_gke_runcli_googlecli
+      - TASK:
+        - script: SERVICES=(audit)
+        # deploy each service to GKE
+        - script: |
+            for each service in ${SERVICES[@]}; do
+              - script: echo "deploying $service"
+              # update template files with values in env variables
+              - script: cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
+              - script: shippable_replace zz-kubernetes/deploy-$service.yml
+              # deploy to cluster and verify success
+              - script: kubectl version
+              - script: kubectl apply -f zz-kubernetes/deploy-$service.yml
+              - script: kubectl rollout status deployments $service
+            done
+

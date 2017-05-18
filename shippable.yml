@@ -1,31 +1,41 @@
 language: java
 
 jdk:
-  - oraclejdk8
+   - oraclejdk8
 
 env:
   global:
     # replace with your docker registry account name (e.g. GCR)
+    # - GCR_REPO=eu.gcr.io/development-152606/ci-deploy
     - GCR_REPO=gcr.io/shippable-gke/java-gcr-gke-runcli
 
 build:
   ci:
+    - cd $SHIPPABLE_BUILD_DIR
+    # run Maven build and tests
+    - mvn clean install
     # create location to store test and code coverage reports
-    - SERVICES=(ms_01 ms_02)
+    - SERVICES=(auth audit)
     - |
         for service in ${SERVICES[@]}; do
           export service
-          cd $SHIPPABLE_BUILD_DIR/$service
-          # run Maven build and tests for each service
-          mvn -q -B clean cobertura:cobertura install
+          cd $SHIPPABLE_BUILD_DIR
           # update Dockerfile template with service value
-          envsubst < docker/$service/Dockerfile > docker/$service/Dockerfile
+          envsubst < zz-docker/$service/Dockerfile > zz-docker/$service/Dockerfile
+          cp $service/target/$service.jar zz-docker/$service
+          cp zz-docker/application.yml zz-docker/$service
           # build docker image and push to registry
-          docker build -t $GCR_REPO:$service $SHIPPABLE_BUILD_DIR/docker/$service
-          docker push $GCR_REPO:$service
+          docker build -t $GCR_REPO/$service zz-docker/$service
+          docker tag $service $GCR_REPO/$service
+          docker push $GCR_REPO/$service
         done
 
+  on_success:
+    - echo versionName=$BRANCH.$BUILD_NUMBER > /build/state/java_gcr_gke_runcli_img_audit.env
+    - echo versionName=$BRANCH.$BUILD_NUMBER > /build/state/java_gcr_gke_runcli_img_auth.env
+    
 integrations:
   hub:
+    # - integrationName: GoogleContainerRegistry
     - integrationName: ttrahan-gcr
       type: gcr
