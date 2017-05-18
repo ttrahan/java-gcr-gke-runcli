@@ -2,7 +2,7 @@ FROM tomcat:8.0.20-jre8
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-ADD $service/target/HelloWorld.war /usr/local/tomcat/webapps/HelloWorld.war
+ADD HelloWorld.war /usr/local/tomcat/webapps/HelloWorld.war
 
 EXPOSE 8080
 
