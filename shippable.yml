@@ -22,8 +22,6 @@ build:
           mvn -q -f $SHIPPABLE_BUILD_DIR/$service -B clean cobertura:cobertura install
           echo $SHIPPABLE_BUILD_DIR/$service/target
           ls -la $SHIPPABLE_BUILD_DIR/$service/target
-          echo /usr/local/tomcat/webapps
-          ls -la /usr/local/tomcat/webapps
           # update Dockerfile template with service value
           # envsubst < zz-docker/$service/Dockerfile > zz-docker/$service/Dockerfile
           shippable_replace $SHIPPABLE_BUILD_DIR/zz-docker/$service/Dockerfile 
