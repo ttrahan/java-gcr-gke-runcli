@@ -37,7 +37,7 @@ jobs:
               # deploy to cluster and verify success
               # kubectl apply -f zz-kubernetes/deploy-$SERVICE.yml
               kubectl apply -f kube-deploy.yaml
-              kubectl rollout status deployments $SERVICE
+              kubectl rollout status deployments $SERVICE --namespace shippable-gke
             done
     flags:
       - sample_project_1      
