@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   # Unique key of the Deployment instance
   name: $SERVICE
-  namespace: test
+  namespace: shippable-gke
 spec:
   replicas: 1
   # Keep record of 10 revisions for rollback
