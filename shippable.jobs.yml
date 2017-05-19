@@ -32,6 +32,7 @@ jobs:
               cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
               # shippable_replace zz-kubernetes/deploy-$service.yml
               shippable_replace kube-deploy.yaml
+              cat kube-deploy.yaml
               # deploy to cluster and verify success
               kubectl version
               # kubectl apply -f zz-kubernetes/deploy-$service.yml
