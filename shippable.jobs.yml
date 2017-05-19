@@ -8,6 +8,8 @@ jobs:
     steps:
       - OUT: java_gcr_gke_runcli_img_audit
       - OUT: java_gcr_gke_runcli_img_auth
+    flags:
+      - sample_project_1      
 
 # runCLI job that deploys image in ECR - TEST
   - name: java_gcr_gke_runcli_test_deploy_all
@@ -36,6 +38,8 @@ jobs:
               kubectl apply -f kube-deploy.yaml
               kubectl rollout status deployments $service
             done
+    flags:
+      - sample_project_1      
 
 # runCLI job that deploys image in ECR - TEST
   - name: java_gcr_gke_runcli_test_deploy_audit
@@ -62,6 +66,8 @@ jobs:
               kubectl apply -f kube-deploy.yaml
               kubectl rollout status deployments $service
             done
+    flags:
+      - sample_project_1      
 
 # runCLI job that deploys image in ECR - TEST
   - name: java_gcr_gke_runcli_test_deploy_auth
@@ -88,3 +94,5 @@ jobs:
               kubectl apply -f kube-deploy.yaml
               kubectl rollout status deployments $service
             done
+    flags:
+      - sample_project_1      

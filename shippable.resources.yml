@@ -8,6 +8,8 @@ resources:
       # sourceName: datoshealth-git
       sourceName: ttrahan/java-gcr-gke-runcli
       branch: master
+    flags:
+      - sample_project_1      
   
 # Google CLI config
   - name: java_gcr_gke_runcli_googlecli
@@ -16,7 +18,10 @@ resources:
     integration: ttrahan-gke
     pointer:
       # region: europe-west1-d
-      region: us-east-1
+      region: us-east-1-b
+      clusterName: shippable-demo
+    flags:
+      - sample_project_1      
 
 # Docker Image Audit
   - name: java_gcr_gke_runcli_img_audit
