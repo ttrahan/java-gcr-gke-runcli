@@ -28,6 +28,7 @@ jobs:
         - script: |
             for SERVICE in ${SERVICES[@]}; do
               echo "deploying $SERVICE"
+              export $SERVICE
               # update template files with values in env variables
               cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
               # shippable_replace zz-kubernetes/deploy-$SERVICE.yml
