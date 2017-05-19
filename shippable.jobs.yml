@@ -24,19 +24,19 @@ jobs:
       - IN: java_gcr_gke_runcli_googlecli
       - TASK:
         - script: export SERVICES=(auth audit)
-        # deploy each service to GKE
+        # deploy each SERVICE to GKE
         - script: |
-            for service in ${SERVICES[@]}; do
-              echo "deploying $service"
+            for SERVICE in ${SERVICES[@]}; do
+              echo "deploying $SERVICE"
               # update template files with values in env variables
               cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              # shippable_replace zz-kubernetes/deploy-$service.yml
+              # shippable_replace zz-kubernetes/deploy-$SERVICE.yml
               shippable_replace kube-deploy.yaml
               cat kube-deploy.yaml
               # deploy to cluster and verify success
-              # kubectl apply -f zz-kubernetes/deploy-$service.yml
+              # kubectl apply -f zz-kubernetes/deploy-$SERVICE.yml
               kubectl apply -f kube-deploy.yaml
-              kubectl rollout status deployments $service
+              kubectl rollout status deployments $SERVICE
             done
     flags:
       - sample_project_1      
@@ -52,18 +52,18 @@ jobs:
       - IN: java_gcr_gke_runcli_googlecli
       - TASK:
         - script: SERVICES=(audit)
-        # deploy each service to GKE
+        # deploy each SERVICE to GKE
         - script: |
-            for service in ${SERVICES[@]}; do
-              echo "deploying $service"
+            for SERVICE in ${SERVICES[@]}; do
+              echo "deploying $SERVICE"
               # update template files with values in env variables
               cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              # shippable_replace zz-kubernetes/deploy-$service.yml
+              # shippable_replace zz-kubernetes/deploy-$SERVICE.yml
               shippable_replace kube-deploy.yaml
               # deploy to cluster and verify success
-              # kubectl apply -f zz-kubernetes/deploy-$service.yml
+              # kubectl apply -f zz-kubernetes/deploy-$SERVICE.yml
               kubectl apply -f kube-deploy.yaml
-              kubectl rollout status deployments $service
+              kubectl rollout status deployments $SERVICE
             done
     flags:
       - sample_project_1      
@@ -79,18 +79,18 @@ jobs:
       - IN: java_gcr_gke_runcli_googlecli
       - TASK:
         - script: SERVICES=(auth)
-        # deploy each service to GKE
+        # deploy each SERVICE to GKE
         - script: |
-            for service in ${SERVICES[@]}; do
-              echo "deploying $service"
+            for SERVICE in ${SERVICES[@]}; do
+              echo "deploying $SERVICE"
               # update template files with values in env variables
               cd $JAVA_GCR_GKE_RUNCLI_GITREPO_STATE
-              # shippable_replace zz-kubernetes/deploy-$service.yml
+              # shippable_replace zz-kubernetes/deploy-$SERVICE.yml
               shippable_replace kube-deploy.yaml
               # deploy to cluster and verify success
-              # kubectl apply -f zz-kubernetes/deploy-$service.yml
+              # kubectl apply -f zz-kubernetes/deploy-$SERVICE.yml
               kubectl apply -f kube-deploy.yaml
-              kubectl rollout status deployments $service
+              kubectl rollout status deployments $SERVICE
             done
     flags:
       - sample_project_1      
