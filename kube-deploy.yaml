@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   # Unique key of the Deployment instance
-  name: $SERVICE
+  name: $service
   namespace: test
 spec:
   replicas: 1
@@ -20,12 +20,12 @@ spec:
       labels:
         # Apply this label to pods and default
         # the Deployment label selector to this value
-        app: $SERVICE
+        app: $service
         env: test
     spec:
       containers:
-      - name: $SERVICE
-        image: gcr.io/shippable-gke/java-gcr-gke-runcli:$SERVICE
+      - name: $service
+        image: gcr.io/shippable-gke/java-gcr-gke-runcli:$service
         ports:
         - containerPort: 80
         env:
