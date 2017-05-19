@@ -18,7 +18,7 @@ resources:
     integration: ttrahan-gke
     pointer:
       # region: europe-west1-d
-      region: us-east-1-b
+      region: us-east-1
       clusterName: shippable-demo
     flags:
       - sample_project_1      
