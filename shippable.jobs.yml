@@ -23,7 +23,7 @@ jobs:
         switch: off
       - IN: java_gcr_gke_runcli_googlecli
       - TASK:
-        - script: SERVICES=(auth audit)
+        - script: export SERVICES=(auth audit)
         # deploy each service to GKE
         - script: |
             for service in ${SERVICES[@]}; do
